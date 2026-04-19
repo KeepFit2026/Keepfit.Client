@@ -35,6 +35,10 @@ export default function Layout({ children }: { children: ReactNode }) {
 
     } catch (err) {
         console.error(err);
+    } finally {
+        document.cookie = 'keepfit-session=; Max-Age=0; path=/; domain=localhost'
+        document.cookie = 'XSRF-TOKEN=; Max-Age=0; path=/; domain=localhost'
+        window.location.href = process.env.NEXT_PUBLIC_LOGIN_URL!
     }
   }
 

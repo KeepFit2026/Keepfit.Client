@@ -1,6 +1,44 @@
+import { cookies } from 'next/headers'
 import styles from './dashboard.module.css'
+import { redirect } from 'next/navigation'
 
-function HeroCard() {
+interface User {
+  id: string
+  name: string
+  email: string
+}
+
+async function getUser(): Promise<User | null> {
+  try {
+    const cookieStore = await cookies()
+    const cookieHeader = cookieStore.getAll()
+      .filter(c => ['keepfit-session', 'XSRF-TOKEN'].includes(c.name))
+      .map(c => `${c.name}=${c.value}`)
+      .join('; ')
+
+    const res = await fetch(`${process.env.INTERNAL_API_URL}/api/user`, {
+      cache: 'no-store',
+      headers: {
+        'Cookie': cookieHeader,
+        'Accept': 'application/json',
+      }
+    })
+
+    const json = await res.json()  // ← d'abord déclarer json
+
+    if (!res.ok || json.message === 'Unauthenticated.') {
+      redirect(process.env.NEXT_PUBLIC_LOGIN_URL!)
+    }
+
+    return json.data ?? json
+
+  } catch (e) {
+    console.log('fetch error:', e)
+    return null
+  }
+}
+
+function HeroCard({ user }: { user: User | null }) {
   return (
     <div className={styles.hero}>
       <div className={styles.heroDay}>
@@ -8,7 +46,7 @@ function HeroCard() {
         <span className={styles.heroDayLabel}>Semaine</span>
       </div>
       <div className={styles.heroText}>
-        <h2>Bon courage, Tom ! 💪</h2>
+        <h2>Bon courage, {user?.name ?? 'Utilisateur'} ! 💪</h2>
         <p>Programme Mobilité Active — 3 exercices à faire aujourd'hui</p>
         <div className={styles.heroPills}>
           <span className={styles.heroPill}>🪑 Chaise</span>
@@ -38,21 +76,9 @@ function TeacherBanner() {
 }
 
 function StatCard({
-  icon,
-  iconBg,
-  label,
-  value,
-  unit,
-  trend,
-  trendVariant = 'up',
+  icon, iconBg, label, value, unit, trend, trendVariant = 'up',
 }: {
-  icon: string
-  iconBg: string
-  label: string
-  value: string
-  unit?: string
-  trend: string
-  trendVariant?: 'up' | 'neutral'
+  icon: string; iconBg: string; label: string; value: string; unit?: string; trend: string; trendVariant?: 'up' | 'neutral'
 }) {
   return (
     <div className={styles.statCard}>
@@ -68,19 +94,9 @@ function StatCard({
 }
 
 function ExerciseItem({
-  icon,
-  iconBg,
-  name,
-  meta,
-  duration,
-  done,
+  icon, iconBg, name, meta, duration, done,
 }: {
-  icon: string
-  iconBg: string
-  name: string
-  meta: string
-  duration: string
-  done: boolean
+  icon: string; iconBg: string; name: string; meta: string; duration: string; done: boolean
 }) {
   return (
     <div className={`${styles.exItem} ${done ? styles.exDone : ''}`}>
@@ -98,23 +114,9 @@ function ExerciseItem({
 }
 
 function ChallengeRow({
-  rank,
-  rankVariant,
-  initials,
-  avatarStyle,
-  name,
-  isMe,
-  pts,
-  pct,
+  rank, rankVariant, initials, avatarStyle, name, isMe, pts, pct,
 }: {
-  rank: number
-  rankVariant: 'gold' | 'silver' | 'bronze' | 'default'
-  initials: string
-  avatarStyle: React.CSSProperties
-  name: string
-  isMe?: boolean
-  pts: string
-  pct: number
+  rank: number; rankVariant: 'gold' | 'silver' | 'bronze' | 'default'; initials: string; avatarStyle: React.CSSProperties; name: string; isMe?: boolean; pts: string; pct: number
 }) {
   return (
     <div className={`${styles.challengeRow} ${isMe ? styles.challengeRowMe : ''}`}>
@@ -134,30 +136,28 @@ function ChallengeRow({
   )
 }
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const user = await getUser()
+  console.log(user);
+
   return (
     <>
       <TeacherBanner />
-      <HeroCard />
+      <HeroCard user={user} />
 
-      {/* Stats row */}
       <div className={styles.statsGrid}>
         <StatCard icon="🔥" iconBg="#d4f0e0" label="Streak actuel"     value="7"     unit=" jours"   trend="↑ Record personnel !" trendVariant="up" />
         <StatCard icon="⚡" iconBg="#e6f1fb" label="Exercices validés" value="24"    unit=" ce mois" trend="↑ +6 vs mois dernier"  trendVariant="up" />
         <StatCard icon="⭐" iconBg="#faeeda" label="Points KeepFit"    value="1 240"                 trend="🏅 Rang 4 dans la classe" trendVariant="neutral" />
       </div>
 
-      {/* Programme + Challenge side by side */}
       <div className={styles.mainGrid}>
-
-        {/* Programme card */}
         <div className={styles.card}>
           <div className={styles.cardHeader}>
             <span className={styles.cardTitle}>📋 Exercices du jour</span>
             <button className={styles.cardLink}>Voir tout</button>
           </div>
 
-          {/* Week strip */}
           <div className={styles.calStrip}>
             {[
               { day: 'Lun', num: 24, dot: true },
@@ -168,10 +168,7 @@ export default function DashboardPage() {
               { day: 'Sam', num: 29 },
               { day: 'Dim', num: 30 },
             ].map((d) => (
-              <div
-                key={d.day}
-                className={`${styles.calDay} ${d.today ? styles.calToday : ''} ${d.dot && !d.today ? styles.calHasEx : ''}`}
-              >
+              <div key={d.day} className={`${styles.calDay} ${d.today ? styles.calToday : ''} ${d.dot && !d.today ? styles.calHasEx : ''}`}>
                 <span className={styles.calDayName}>{d.day}</span>
                 <span className={styles.calDayNum}>{d.num}</span>
                 {d.dot && <span className={styles.calDot} />}
@@ -197,7 +194,6 @@ export default function DashboardPage() {
         </div>
 
         <div className={styles.rightCol}>
-
           <div className={styles.card}>
             <div className={styles.cardHeader}>
               <span className={styles.cardTitle}>🏆 Challenge Terminale B</span>
@@ -226,7 +222,6 @@ export default function DashboardPage() {
               ))}
             </div>
           </div>
-
         </div>
       </div>
     </>
