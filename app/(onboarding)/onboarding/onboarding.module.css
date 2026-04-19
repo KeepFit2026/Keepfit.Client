@@ -1,0 +1,335 @@
+:root {
+  --kf-green:        #1db954;
+  --kf-green-dark:   #15883c;
+  --kf-green-light:  #d4f0e0;
+  --kf-green-mid:    #a8ddbf;
+  --kf-accent:       #f0f9f4;
+  --kf-surface:      #ffffff;
+  --kf-bg:           #f3faf6;
+  --kf-border:       #ddf0e7;
+  --kf-text:         #0f2e1c;
+  --kf-text-muted:   #6b8f78;
+  --kf-text-light:   #9dbfad;
+
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 4px 24px rgba(21, 136, 60, 0.08);
+
+  --font-display: 'Syne', 'Montserrat', sans-serif;
+  --font-body:    'DM Sans', 'Segoe UI', sans-serif;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--kf-bg);
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 540px;
+  background: var(--kf-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--kf-border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 32px 32px 20px;
+  background: linear-gradient(to bottom, var(--kf-accent), var(--kf-surface));
+  border-bottom: 1px solid var(--kf-border);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.stepper::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--kf-border);
+  transform: translateY(-50%);
+  border-radius: var(--radius-pill);
+  z-index: 1;
+}
+
+.stepDot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--kf-surface);
+  border: 3px solid var(--kf-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--kf-text-muted);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.stepDotActive {
+  border-color: var(--kf-green);
+  background: var(--kf-green);
+  color: #fff;
+  box-shadow: 0 0 0 4px var(--kf-green-light);
+}
+
+.stepDotDone {
+  border-color: var(--kf-green);
+  background: var(--kf-green);
+  color: #fff;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--kf-text);
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--kf-text-muted);
+  margin: 0;
+}
+
+.content {
+  padding: 32px;
+  flex: 1;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--kf-text);
+}
+
+.input {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--kf-border);
+  background: var(--kf-bg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--kf-text);
+  transition: all 0.2s;
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--kf-green);
+  background: var(--kf-surface);
+  box-shadow: 0 0 0 4px var(--kf-green-light);
+}
+
+.selectionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.selectionCard {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--kf-border);
+  background: var(--kf-surface);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.15s;
+}
+
+.selectionCard:hover {
+  border-color: var(--kf-green-mid);
+  background: var(--kf-accent);
+  transform: translateY(-2px);
+}
+
+.selectionCardActive {
+  border-color: var(--kf-green);
+  background: var(--kf-green-light);
+}
+
+.selectionIcon {
+  font-size: 32px;
+}
+
+.selectionTitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--kf-text);
+  text-align: center;
+}
+
+.footer {
+  padding: 24px 32px;
+  border-top: 1px solid var(--kf-border);
+  background: var(--kf-surface);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btnBack {
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: var(--kf-bg);
+  color: var(--kf-text-muted);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btnBack:hover {
+  background: #e2ede7;
+  color: var(--kf-text);
+}
+
+.btnNext {
+  padding: 12px 28px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: var(--kf-green);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(29, 185, 84, 0.40);
+  transition: all 0.16s;
+}
+
+.btnNext:hover {
+  background: var(--kf-green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(29, 185, 84, 0.50);
+}
+
+/* ── Animations ──────────────────────────────── */
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animatedStep {
+  animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.headerContent {
+  animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Inputs avec Icônes ──────────────────────── */
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  color: var(--kf-text-muted);
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.inputWithIcon {
+  width: 100%;
+  padding: 14px 16px 14px 40px; /* Espace à gauche pour l'icône */
+  border-radius: var(--radius-md);
+  border: 2px solid var(--kf-border);
+  background: var(--kf-bg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--kf-text);
+  transition: all 0.2s;
+  outline: none;
+}
+
+.inputWithIcon:focus {
+  border-color: var(--kf-green);
+  background: var(--kf-surface);
+  box-shadow: 0 0 0 4px var(--kf-green-light);
+}
+
+.inputWrapper:focus-within .inputIcon {
+  color: var(--kf-green);
+}
+
+/* ── Ajustements Selection Card ──────────────── */
+.selectionCard {
+  /* ... garde tes styles précédents, on ajoute juste: */
+  justify-content: center;
+  min-height: 140px;
+}
+
+.selectionIcon {
+  color: var(--kf-green-dark);
+  margin-bottom: 4px;
+}
+
+.selectionCardActive .selectionIcon {
+  color: var(--kf-green);
+}
+
+.selectionDesc {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--kf-text-muted);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ── Bouton Désactivé ────────────────────────── */
+.btnNext:disabled {
+  background: var(--kf-border);
+  color: var(--kf-text-light);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
