@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { UserProvider } from '../providers/userProvider';
 
 export const metadata: Metadata = {
   title: 'Bienvenue sur KeepFit | Configuration du profil',
@@ -9,9 +10,11 @@ export const metadata: Metadata = {
 export default function OnboardingLayout({children}: {children: React.ReactNode}) {
   return (
     <>
+      <UserProvider>
         <div className="onboarding-layout-root">
-            {children}
+          {children}
         </div>
+      </UserProvider>
     </>
   );
 }

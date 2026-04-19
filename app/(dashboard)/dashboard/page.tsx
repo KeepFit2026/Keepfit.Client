@@ -1,42 +1,8 @@
-import { cookies } from 'next/headers'
+'use client';
+
+import { User } from '@/app/types/User';
 import styles from './dashboard.module.css'
-import { redirect } from 'next/navigation'
-
-interface User {
-  id: string
-  name: string
-  email: string
-}
-
-async function getUser(): Promise<User | null> {
-  try {
-    const cookieStore = await cookies()
-    const cookieHeader = cookieStore.getAll()
-      .filter(c => ['keepfit-session', 'XSRF-TOKEN'].includes(c.name))
-      .map(c => `${c.name}=${c.value}`)
-      .join('; ')
-
-    const res = await fetch(`${process.env.INTERNAL_API_URL}/api/user`, {
-      cache: 'no-store',
-      headers: {
-        'Cookie': cookieHeader,
-        'Accept': 'application/json',
-      }
-    })
-
-    const json = await res.json()  // ← d'abord déclarer json
-
-    if (!res.ok || json.message === 'Unauthenticated.') {
-      redirect(process.env.NEXT_PUBLIC_LOGIN_URL!)
-    }
-
-    return json.data ?? json
-
-  } catch (e) {
-    console.log('fetch error:', e)
-    return null
-  }
-}
+import { useUser } from '@/app/providers/userProvider';
 
 function HeroCard({ user }: { user: User | null }) {
   return (
@@ -136,9 +102,15 @@ function ChallengeRow({
   )
 }
 
-export default async function DashboardPage() {
-  const user = await getUser()
-  console.log(user);
+export default function DashboardPage() {
+  const { user, isLoading } = useUser(); // Hook dans le provider.
+  if (isLoading) {
+    return (
+      <div style={{ padding: '2rem', textAlign: 'center' }}>
+        Chargement de ton espace...
+      </div>
+    );
+  }
 
   return (
     <>
