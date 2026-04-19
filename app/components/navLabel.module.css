@@ -1,0 +1,103 @@
+/* ─────────────────────────────────────────────
+   NavLabel.module.css
+───────────────────────────────────────────── */
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.14s, color 0.14s;
+  position: relative;
+  cursor: pointer;
+}
+.item:hover {
+  background: rgba(255,255,255,0.07);
+}
+
+/* Active state */
+.active {
+  background: rgba(29, 185, 84, 0.15) !important;
+  border: 1px solid rgba(29, 185, 84, 0.22);
+}
+.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 3px;
+  background: #1db954;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Icon */
+.icon {
+  font-size: 16px;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+  opacity: 0.65;
+  transition: opacity 0.14s;
+}
+.iconActive {
+  opacity: 1;
+}
+
+/* Label */
+.label {
+  flex: 1;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.62);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.14s;
+}
+.active .label {
+  color: #fff;
+  font-weight: 700;
+}
+.item:hover .label {
+  color: rgba(255,255,255,0.90);
+}
+
+/* Badge */
+.badge {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* Badge variants */
+.badge.default {
+  background: #1db954;
+  color: #fff;
+}
+.badge.alert {
+  background: #ef4444;
+  color: #fff;
+  animation: pulse 2s infinite;
+}
+.badge.amber {
+  background: #f59e0b;
+  color: #fff;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.70; }
+}

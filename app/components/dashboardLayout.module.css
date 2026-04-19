@@ -1,0 +1,72 @@
+/* ─────────────────────────────────────────────
+   DashboardLayout.module.css
+───────────────────────────────────────────── */
+
+.root {
+  display: flex;
+  min-height: 100vh;
+  background: #f3faf6;
+  font-family: 'DM Sans', 'Segoe UI', sans-serif;
+}
+
+/* ── Body (topbar + main content) ────────────── */
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ── Topbar ──────────────────────────────────── */
+.topbar {
+  height: 60px;
+  background: #fff;
+  border-bottom: 1px solid #ddf0e7;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 28px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-shadow: 0 1px 8px rgba(21, 136, 60, 0.06);
+}
+
+.topbarLeft {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.topbarTitle {
+  font-family: 'Syne', 'Montserrat', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f2e1c;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.topbarBreadcrumb {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: #6b8f78;
+  margin-top: 2px;
+}
+
+.topbarActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Page content ────────────────────────────── */
+.content {
+  flex: 1;
+  padding: 24px 28px;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .root { flex-direction: column; }
+  .content { padding: 16px; }
+}
