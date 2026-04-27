@@ -46,7 +46,6 @@ export default function Layout({ children }: { children: ReactNode }) {
       <DashboardLayout
         pageTitle="Tableau de bord"
         breadcrumb="Terminale B · Semaine 12"
-        user={{ name: 'Tom Lefèvre', subtitle: 'Terminale B · Élève', initials: 'TL' }}
         sidebar={
           <>
             <NavLabel label="Accueil" href="/dashboard" icon="🏠" />

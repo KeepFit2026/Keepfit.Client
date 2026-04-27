@@ -3,6 +3,9 @@ export type User = {
   name: string;
   email: string;
   onboarding_completed?: boolean;
+  current_xp: number;
+  current_level: number;
+  xp_required: number
 }
 
 export type UserContextType = {

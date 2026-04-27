@@ -1,31 +1,12 @@
+import { User } from '../types/User'
 import styles from './aside.module.css'
 
 interface AsideProps {
-  /** NavGroup + NavLabel children */
   children: React.ReactNode
-  /** User info shown at the top */
-  user?: {
-    name: string
-    subtitle: string
-    initials: string
-  }
-  /** Footer slot — typically settings + logout */
+  user: User
   footer?: React.ReactNode
 }
 
-/**
- * The sidebar shell. Accepts any combination of NavGroup / NavLabel children.
- *
- * Minimal usage:
- *   <Aside user={{ name: 'Tom L.', subtitle: 'Terminale B', initials: 'TL' }}>
- *     <NavLabel label="Accueil" href="/dashboard" icon="🏠" />
- *
- *     <NavGroup groupLabel="Mon activité">
- *       <NavLabel label="Exercices" href="/dashboard/exercices" icon="⚡" badge={3} />
- *       <NavLabel label="Programme" href="/dashboard/programme" icon="📋" />
- *     </NavGroup>
- *   </Aside>
- */
 export function Aside({ children, user, footer }: AsideProps) {
   return (
     <aside className={styles.aside}>
@@ -56,10 +37,9 @@ export function Aside({ children, user, footer }: AsideProps) {
       {user && (
         <div className={styles.userWrap}>
           <div className={styles.userPill}>
-            <div className={styles.avatar}>{user.initials}</div>
+            <div className={styles.avatar}>{ user.name[0] }</div>
             <div className={styles.userInfo}>
               <span className={styles.userName}>{user.name}</span>
-              <span className={styles.userSub}>{user.subtitle}</span>
             </div>
             <span className={styles.userChevron}>▾</span>
           </div>
