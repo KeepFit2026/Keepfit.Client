@@ -3,6 +3,7 @@
 import { User } from '@/app/types/User';
 import styles from './dashboard.module.css'
 import { useUser } from '@/app/providers/userProvider';
+import api from '@/app/lib/axios';
 
 function HeroCard({ user }: { user: User | null }) {
   return (
@@ -103,7 +104,7 @@ function ChallengeRow({
 }
 
 export default function DashboardPage() {
-  const { user, isLoading } = useUser(); // Hook dans le provider.
+  const { user, isLoading, refetchUser } = useUser(); // Hook dans le provider.
   if (isLoading) {
     return (
       <div style={{ padding: '2rem', textAlign: 'center' }}>
@@ -112,10 +113,16 @@ export default function DashboardPage() {
     );
   }
 
+  const handleAddXp = async () => {
+    api.get('/api/addXp');
+    await refetchUser();
+  }
+
   return (
     <>
       <TeacherBanner />
       <HeroCard user={user} />
+      <button onClick={handleAddXp}> +10XP</button>
 
       <div className={styles.statsGrid}>
         <StatCard icon="🔥" iconBg="#d4f0e0" label="Streak actuel"     value="7"     unit=" jours"   trend="↑ Record personnel !" trendVariant="up" />

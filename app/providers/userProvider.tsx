@@ -13,10 +13,15 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchUser = async () => {
-    setIsLoading(true);
+
+    //Loading seulement si l'utilisateur n'est pas encore chargé pour la première fois.
+    if(!user) {
+      setIsLoading(true);
+    }
+
     try {
       const response = await api.get('/api/user');
-      setUser(response.data);
+      setUser(response.data.data);
     } catch (error) {
       setUser(null);
     } finally {
@@ -35,7 +40,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   );
 }
 
-//Hook personnalisé pour utiliser le contexte facilement
+//Hook pour utiliser le contexte
 export function useUser() {
   const context = useContext(UserContext);
   if (context === undefined) {

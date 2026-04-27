@@ -37,7 +37,7 @@ export function Aside({ children, user, footer }: AsideProps) {
       {user && (
         <div className={styles.userWrap}>
           <div className={styles.userPill}>
-            <div className={styles.avatar}>{ user.name[0] }</div>
+            <div className={styles.avatar}>{ user.name?.[0] ?? '?'}</div>
             <div className={styles.userInfo}>
               <span className={styles.userName}>{user.name}</span>
             </div>

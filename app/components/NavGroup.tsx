@@ -3,23 +3,11 @@ import { useState } from 'react'
 import styles from './navGroup.module.css'
 
 interface NavGroupProps {
-  /** Section label shown above items */
   groupLabel: string
-  /** NavLabel components */
   children: React.ReactNode
-  /** Open by default? */
   defaultOpen?: boolean
 }
 
-/**
- * A collapsible group of NavLabel items.
- *
- * Usage inside <Aside>:
- *   <NavGroup groupLabel="Mon activité">
- *     <NavLabel label="Accueil" href="/dashboard" icon="🏠" />
- *     <NavLabel label="Exercices" href="/dashboard/exercices" icon="⚡" badge={3} />
- *   </NavGroup>
- */
 export function NavGroup({
   groupLabel,
   children,

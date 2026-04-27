@@ -1,3 +1,6 @@
+'use client'
+import { refresh } from 'next/cache'
+import api from '../lib/axios'
 import { useUser } from '../providers/userProvider'
 import { User } from '../types/User'
 import { Aside } from './Aside'
@@ -15,19 +18,12 @@ type DashboardLayoutProps = {
 }
 
 type TopBarProps = {
-  title: string,
-  breadcrumb?: string;
-  actions?: React.ReactNode;
-  userData?: any;
+  title: string
+  breadcrumb?: string
+  actions?: React.ReactNode
 }
 
-function Topbar({ title, breadcrumb, actions, userData }: TopBarProps) {
-
-  const xp = userData?.current_xp ?? 1240;
-  const nextXp = userData?.xp_required;
-  const level = userData?.current_level ?? 8;
-  const progress = (xp / nextXp) * 100;
-
+function Topbar({ title, breadcrumb, actions }: TopBarProps) {
   return (
     <div className={styles.topbar}>
       <div className={styles.topbarLeft}>
@@ -36,12 +32,7 @@ function Topbar({ title, breadcrumb, actions, userData }: TopBarProps) {
       </div>
 
       <div className={styles.topbarRight}>
-        <XpCard
-          xp={xp}
-          nextXp={nextXp}
-          level={level}
-          progress={progress}
-        />
+        <XpCard />
         {actions && <div className={styles.topbarActions}>{actions}</div>}
       </div>
     </div>
@@ -49,9 +40,8 @@ function Topbar({ title, breadcrumb, actions, userData }: TopBarProps) {
 }
 
 export function DashboardLayout({ sidebar, sidebarFooter, pageTitle, breadcrumb, topbarActions, children }: DashboardLayoutProps) {
-
   const { user } = useUser();
-
+  
   return (
     <div className={styles.root}>
       <Aside user={user!} footer={sidebarFooter}>
@@ -63,7 +53,6 @@ export function DashboardLayout({ sidebar, sidebarFooter, pageTitle, breadcrumb,
           title={pageTitle}
           breadcrumb={breadcrumb}
           actions={topbarActions}
-          userData={user}
         />
         <main className={styles.content}>{children}</main>
       </div>

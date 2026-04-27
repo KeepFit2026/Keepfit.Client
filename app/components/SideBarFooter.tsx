@@ -1,14 +1,12 @@
 import styles from './aside.module.css'
 
-export function SidebarFooterItem({
-  icon,
-  label,
-  onClick,
-}: {
-  icon: string
-  label: string
-  onClick?: () => void
-}) {
+type SideBarsProps = {
+  icon: String,
+  label: String,
+  onClick? : () => void
+}
+
+export function SidebarFooterItem({ icon, label, onClick }: SideBarsProps) {
   return (
     <>
       <button className={styles.footerItem} onClick={onClick}>
