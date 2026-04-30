@@ -114,7 +114,9 @@ export default function DashboardPage() {
   }
 
   const handleAddXp = async () => {
-    api.get('/api/addXp');
+    api.post('/api/addXp', {
+      nbXp: 15 // <-- Valeur à attribuer selon l'action.
+    });
     await refetchUser();
   }
 
@@ -122,7 +124,7 @@ export default function DashboardPage() {
     <>
       <TeacherBanner />
       <HeroCard user={user} />
-      <button onClick={handleAddXp}> +10XP</button>
+      <button onClick={handleAddXp}> +15XP</button>
 
       <div className={styles.statsGrid}>
         <StatCard icon="🔥" iconBg="#d4f0e0" label="Streak actuel"     value="7"     unit=" jours"   trend="↑ Record personnel !" trendVariant="up" />
