@@ -1,0 +1,151 @@
+.container {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.progressContainer {
+  width: 100%;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progressBar {
+  height: 100%;
+  background: #22c55e;
+  border-radius: 10px;
+  transition: width 0.4s ease-in-out;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  color: #6b7280;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.quizCard {
+  background: #ffffff;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  border: 1px solid #f3f4f6;
+}
+
+.questionText {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 2.5rem;
+  line-height: 1.5;
+}
+
+.answersGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.answerBtn {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 14px;
+  font-size: 1.05rem;
+  color: #4b5563;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+/* La petite lettre (A, B, C...) devant la réponse */
+.answerLetter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #f3f4f6;
+  color: #6b7280;
+  border-radius: 8px;
+  margin-right: 1.25rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.answerBtn:hover {
+  border-color: #22c55e;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.answerBtn:hover .answerLetter {
+  background: #22c55e;
+  color: white;
+}
+
+.answerBtn.selected {
+  background: #ecfdf5;
+  border-color: #22c55e;
+  color: #065f46;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+}
+
+.answerBtn.selected .answerLetter {
+  background: #22c55e;
+  color: white;
+}
+
+.footer {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nextBtn {
+  padding: 1rem 3rem;
+  background: #0d3320; 
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(13, 51, 32, 0.2);
+}
+
+.nextBtn:hover:not(:disabled) {
+  background: #144d31;
+  transform: translateY(-2px);
+}
+
+.nextBtn:disabled {
+  background: #9ca3af;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  color: #6b7280;
+  font-weight: 500;
+}

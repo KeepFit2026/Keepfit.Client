@@ -56,7 +56,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             </NavGroup>
             <NavGroup groupLabel="Classe & Groupe">
               <NavLabel label="Challenges"    href="/dashboard/challenges" icon="🏆" badge={1} badgeVariant="alert" />
-              <NavLabel label="Quiz anatomie" href="/dashboard/quiz"       icon="❓" />
+              <NavLabel label="Quiz anatomie" href="/quizz"       icon="❓" />
             </NavGroup>
           </>
         }
