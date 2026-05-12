@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  padding: 24px;
 }
 
 .quizHero {
@@ -9,7 +10,6 @@
   border-radius: 12px;
   padding: 32px 40px;
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .heroTop {
@@ -20,23 +20,17 @@
 }
 
 .heroTop h1 {
-  font-family: 'Syne', sans-serif;
   font-size: 24px;
   font-weight: 700;
-  margin: 0;
 }
 
 .streakIndicator {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(29, 185, 84, 0.15);
   color: #1db954;
-  padding: 6px 16px;
-  border-radius: 6px;
   font-size: 13px;
   font-weight: 700;
-  border: 1px solid rgba(29, 185, 84, 0.3);
 }
 
 .quizHero p {
@@ -44,17 +38,15 @@
   color: #9dbfad;
   max-width: 600px;
   line-height: 1.5;
-  margin: 0;
 }
 
-/* ── Main Grid ── */
 .quizMainGrid {
   display: grid;
   grid-template-columns: 1fr 320px;
   gap: 24px;
+  align-items: start;
 }
 
-/* ── Calendar Card ── */
 .calendarCard {
   background: #ffffff;
   border: 1px solid #eef6f2;
@@ -69,12 +61,31 @@
   margin-bottom: 24px;
 }
 
+.monthSelector {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .monthTitle {
-  font-family: 'Syne', sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: #0b2e1c;
-  margin: 0;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.navBtn {
+  background: #f0fdf5;
+  border: 1px solid #d4f0e0;
+  color: #15883c;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .legend {
@@ -86,8 +97,8 @@
 }
 
 .legendItem { display: flex; align-items: center; gap: 8px; }
-.dotDone { width: 8px; height: 8px; background: #d4f0e0; border-radius: 2px; }
-.dotToday { width: 8px; height: 8px; background: #1db954; border-radius: 2px; }
+.dotDone { width: 8px; height: 8px; background: #1db954; border-radius: 2px; }
+.dotToday { width: 8px; height: 8px; background: #ffffff; border: 1px solid #1db954; border-radius: 2px; }
 
 .calendarGrid {
   display: grid;
@@ -95,21 +106,28 @@
   gap: 12px;
 }
 
+.weekDay {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: #9dbfad;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+}
+
 .dayBox {
-  aspect-ratio: 1;
+  aspect-ratio: 1 / 1;
   border-radius: 8px;
   border: 1px solid #eef6f2;
-  background: #fcfdfc;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
 .dayNumber {
-  font-family: 'DM Sans', sans-serif;
   font-size: 15px;
   font-weight: 600;
   color: #0b2e1c;
@@ -117,36 +135,73 @@
 
 .statusIcon {
   margin-top: 4px;
-  color: currentColor;
 }
 
-/* ── States ── */
-.done {
-  background: #f0fdf5;
-  border-color: #d4f0e0;
-  color: #15883c;
+.statsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f4f2;
 }
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.statLabel {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.statValue {
+  font-weight: 700;
+  color: #0b2e1c;
+}
+
+.empty { border: none; background: transparent; cursor: default; }
+
+.locked {
+  background: #f9fafb;
+  border-color: #f3f4f6;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.locked .dayNumber { color: #d1d5db; }
+
+.done {
+  background: #1db954;
+  border-color: #1db954;
+}
+.done .dayNumber { color: #ffffff; }
 
 .today {
   background: #ffffff;
   border: 2px solid #1db954;
-  box-shadow: 0 4px 12px rgba(29, 185, 84, 0.08);
 }
 .today .dayNumber { color: #1db954; font-weight: 800; }
 
-.locked {
-  background: #f8f9f8;
-  color: #9dbfad;
-  border-style: solid;
+.missed {
+  background: #fff1f2;
+  border-color: #fee2e2;
+}
+.missed .dayNumber { color: #ef4444; }
+
+.selected {
+  outline: 2px solid #0b2e1c;
+  outline-offset: 2px;
 }
 
-/* ── Detail Panel ── */
 .detailPanel {
   background: #ffffff;
   border: 1px solid #eef6f2;
   border-radius: 12px;
   padding: 24px;
-  height: fit-content;
 }
 
 .detailHeader {
@@ -161,7 +216,6 @@
   font-weight: 700;
   color: #9dbfad;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .difficultyTag {
@@ -177,38 +231,11 @@
 .difficultyTag[data-difficulty="difficile"] { background: #fef2f2; color: #b91c1c; }
 
 .questionTitle {
-  font-family: 'Syne', sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: #0b2e1c;
-  line-height: 1.4;
-  margin: 0 0 12px;
+  margin-bottom: 12px;
 }
-
-.questionDescription {
-  font-size: 13px;
-  color: #6b8f78;
-  line-height: 1.6;
-  margin-bottom: 24px;
-}
-
-.statsList {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #eef6f2;
-}
-
-.statItem {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-}
-
-.statLabel { color: #6b8f78; }
-.statValue { font-weight: 700; color: #0b2e1c; }
 
 .startBtn {
   width: 100%;
@@ -218,63 +245,5 @@
   border: none;
   border-radius: 8px;
   font-weight: 700;
-  font-size: 14px;
   cursor: pointer;
-  transition: background 0.2s;
-}
-
-.startBtn:hover {
-  background: #15883c;
-}
-
-.monthSelector {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.navBtn {
-  background: #f0fdf5;
-  border: 1px solid #d4f0e0;
-  color: #15883c;
-  border-radius: 6px;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.navBtn:hover {
-  background: #1db954;
-  color: white;
-  border-color: #1db954;
-}
-
-.monthTitle {
-  text-transform: capitalize;
-  min-width: 150px;
-  text-align: center;
-}
-
-.weekDay {
-  text-align: center;
-  font-size: 11px;
-  font-weight: 800;
-  color: #9dbfad;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding-bottom: 8px;
-}
-
-.empty {
-  border: none;
-  background: transparent;
-  cursor: default;
-}
-
-.empty .statusIcon {
-  display: none;
 }

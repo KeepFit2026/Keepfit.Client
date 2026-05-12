@@ -29,8 +29,6 @@ export default function OnboardingPage() {
 
   const { user, isLoading: isUserLoading } = useUser();
 
-  console.log(user);
-
   useEffect(() => {
     if(user?.onboarding_completed) {
       router.replace('/dashboard');

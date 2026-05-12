@@ -147,8 +147,8 @@ export default function QuizPage() {
               </p>
               <div className={styles.statsList}>
                 <div className={styles.statItem}>
-                  <span className={styles.statLabel}>Récompense</span>
-                  <span className={styles.statValue}>{dailyQuiz.quizz.xp_reward || (dailyQuiz.quizz.xp_reward || 10)} XP</span>
+                  <span className={styles.statLabel}>Récompense Max.</span>
+                  <span className={styles.statValue}>{dailyQuiz.quizz.xp_reward} XP</span>
                 </div>
               </div>
               <button
